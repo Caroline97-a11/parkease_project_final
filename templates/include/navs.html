@@ -1,0 +1,92 @@
+<!-- ================= NAVBAR ================= -->
+ {% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+
+    <!-- BRAND -->
+    <a class="navbar-brand fw-bold text-primary" href="#">
+      
+
+<img src="{% static 'images/logo.png' %}" alt="Logo" width="36"> ParkEase
+    </a>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+        <!-- LEFT MENU -->
+        <ul class="navbar-nav me-auto">
+
+            {% if request.user.role == "ATTENDANT" %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.role == "ADMIN" %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'report_dashboard' %}">Reports</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'vehicle_category' %}">Add Category</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_list' %}">Users</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.role == "ATTENDANT" or request.user.role == "ADMIN" %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'vehicle_category_list' %}">Category List</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.role == "MANAGER" %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'service_price_list' %}">Price List</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'tyre_list' %}">Tyre List</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'battery_list' %}">Battery List</a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+        <!-- RIGHT USER SECTION -->
+        <ul class="navbar-nav ms-auto align-items-center">
+
+            <!-- USERNAME -->
+            <li class="nav-item me-3 text-primary fw-semibold">
+                <i class="bi bi-person-circle me-1"></i>
+                {{ request.user.username }}
+            </li>
+
+            <!-- ROLE -->
+            <li class="nav-item me-3">
+                <span class="badge bg-primary">
+                    {{ request.user.role }}
+                </span>
+            </li>
+
+            <!-- LOGOUT -->
+            <li class="nav-item">
+                <a href="{% url 'logout_user' %}" class="btn btn-outline-danger btn-sm">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>

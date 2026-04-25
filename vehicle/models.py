@@ -52,7 +52,7 @@ class Registration(models.Model):
     driver_name = models.CharField(max_length=100, null=True,blank=True)
     driver_status = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True )
     phone_number = models.CharField(max_length=15)
-    nin_number = models.CharField(max_length=20, blank=True, null=True, unique=True)
+    nin_number = models.CharField(max_length=20, blank=True, null=True)
     arrival_time = models.DateTimeField(default=timezone.now)
     departure_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES,default="parked")
