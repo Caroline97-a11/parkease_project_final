@@ -29,6 +29,7 @@ class Tyre(models.Model):
 
     vehicle_plate = models.CharField(max_length=10)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    payment_method= models.ForeignKey(Payment, no_delete =models.CASCADE)
     registered_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     receipt_number = models.CharField(max_length=20, unique=True, editable=False)
     date = models.DateField(default=timezone.now)
