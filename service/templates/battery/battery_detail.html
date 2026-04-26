@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <span class="fw-semibold">Battery Service Details</span>
+
+            <!-- ACTION ICONS -->
+            <div class="d-flex gap-3">
+
+                <!-- Receipt -->
+                <a href="{% url 'battery_receipt' battery.id %}" 
+                   class="text-primary fs-5"
+                   title="Receipt">
+                    <i class="bi bi-receipt"></i>
+                </a>
+
+                <!-- Edit -->
+                <a href="{% url 'edit_battery' battery.id %}" 
+                   class="text-success fs-5"
+                   title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+
+                <!-- Delete -->
+                <a href="{% url 'delete_battery' battery.id %}" 
+                   class="text-danger fs-5"
+                   title="Delete">
+                    <i class="bi bi-trash"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <strong>Customer:</strong><br>
+                    {{ battery.customer_name }}
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Battery Type:</strong><br>
+                    <span class="badge bg-secondary">
+                        {{ battery.battery_type }}
+                    </span>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Price:</strong><br>
+                    <span class="text-primary fw-bold">
+                        UGX {{ battery.price }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

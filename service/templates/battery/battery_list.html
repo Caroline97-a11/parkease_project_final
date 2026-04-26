@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h4 class="fw-bold mb-0 text-primary">Battery Services</h4>
+            <small class="text-muted">All battery service transactions</small>
+        </div>
+
+        <!-- ADD BATTERY BUTTON -->
+        <a href="{% url 'add_battery_service' %}" class="btn btn-primary btn-sm shadow-sm">
+            <i class="bi bi-plus-lg me-1"></i> Add Battery
+        </a>
+
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Battery Type</th>
+                        <th>Price</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for b in batteries %}
+                    <tr>
+
+                        <td class="fw-semibold">{{ b.customer_name }}</td>
+
+                        <td>
+                            <span class="badge bg-secondary-subtle text-dark">
+                                {{ b.battery_type }}
+                            </span>
+                        </td>
+
+                        <td class="fw-bold text-primary">
+                            UGX {{ b.price }}
+                        </td>
+
+                        <td class="text-end">
+                            <a href="{% url 'battery_detail' b.id %}" 
+                               class="text-primary fs-5" 
+                               title="View">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                            No battery services found
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

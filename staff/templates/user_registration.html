@@ -1,0 +1,86 @@
+{% extends 'base.html' }
+   {% block title %} User Registration {% endblock %}
+
+ 
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold text-center mb-4">User Registration</h4>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="row g-3">
+
+                            <!-- FIRST NAME -->
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+
+                            <!-- LAST NAME -->
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                {{ form.email }}
+                            </div>
+
+                            <!-- USERNAME -->
+                            <div class="col-md-6">
+                                <label class="form-label">Username</label>
+                                {{ form.username }}
+                            </div>
+
+                            <!-- ROLE -->
+                            <div class="col-md-12">
+                                <label class="form-label">Role</label>
+                                {{ form.role }}
+                            </div>
+
+                            <!-- PASSWORD -->
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                {{ form.password1 }}
+                            </div>
+
+                            <!-- CONFIRM PASSWORD -->
+                            <div class="col-md-6">
+                                <label class="form-label">Confirm Password</label>
+                                {{ form.password2 }}
+                            </div>
+
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Register
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

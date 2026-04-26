@@ -46,20 +46,20 @@ class Registration(models.Model):
     ]
 
     vehicle_type = models.ForeignKey(Category, on_delete=models.CASCADE)
-    plate_number = models.CharField(max_length=10)
-    model = models.CharField(max_length=100)
+    plate_number = models.CharField(max_length=10, null=False)
+    model = models.CharField(max_length=100, null=False)
     color = models.CharField(max_length=100, null=True,blank=True)
     driver_name = models.CharField(max_length=100, null=True,blank=True)
     driver_status = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True )
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, null=False)
     nin_number = models.CharField(max_length=20, blank=True, null=True)
     arrival_time = models.DateTimeField(default=timezone.now)
     departure_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES,default="parked")
     ticket_number = models.CharField( max_length=20, unique=True,editable=False)
-    fee = models.IntegerField(default=0)
+    fee = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     rate_type = models.CharField(max_length=10,choices=RATE_TYPE_CHOICES,null=True,blank=True)
-    pyment_method = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    payment_method = models.ForeignKey(Payment, on_delete=models.CASCADE, null=False)
     registered_by = models.ForeignKey(Staff,on_delete=models.SET_NULL,null=True)
 
 # This allows for unique ticket numbers

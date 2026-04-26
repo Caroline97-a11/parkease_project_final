@@ -1,5 +1,4 @@
-<!-- ================= NAVBAR ================= -->
- {% load static %}
+{% load static %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
 
@@ -28,7 +27,7 @@
 
             {% if request.user.role == "ADMIN" %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'report_dashboard' %}">Reports</a>
+                <!-- <a class="nav-link" href="{% url 'report_dashboard' %}">Reports</a> -->
             </li>
 
             <li class="nav-item">
@@ -36,7 +35,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'user_list' %}">Users</a>
+                <!-- <a class="nav-link" href="{% url 'user_list' %}">Users</a> -->
             </li>
             {% endif %}
 
@@ -48,15 +47,15 @@
 
             {% if request.user.role == "MANAGER" %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'service_price_list' %}">Price List</a>
+                <!-- <a class="nav-link" href="{% url 'service_price_list' %}">Price List</a> -->
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'tyre_list' %}">Tyre List</a>
+                <!-- <a class="nav-link" href="{% url 'tyre_list' %}">Tyre List</a> -->
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'battery_list' %}">Battery List</a>
+                <!-- <a class="nav-link" href="{% url 'battery_list' %}">Battery List</a> -->
             </li>
             {% endif %}
 
@@ -80,7 +79,7 @@
 
             <!-- LOGOUT -->
             <li class="nav-item">
-                <a href="{% url 'logout_user' %}" class="btn btn-outline-danger btn-sm">
+                <!-- <a href="{% url 'logout_user' %}" class="btn btn-outline-danger btn-sm"> -->
                     Logout
                 </a>
             </li>
@@ -89,4 +88,4 @@
 
     </div>
 
-</nav>
+</nav> -->

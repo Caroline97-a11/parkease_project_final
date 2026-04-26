@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+        <h4 class="fw-bold text-primary mb-0">Attendant Dashboard</h4>
+
+        <a href="{% url 'register_vehicle' %}" class="btn btn-primary btn-sm shadow-sm">
+            + Add Vehicle
+        </a>
+    </div>
+
+    <!-- QUICK STATS -->
+    <div class="row g-3 mb-4">
+        {% include "includes/cards.html" %}
+    </div>
+
+    <!-- ========================= -->
+    <!-- 🚗 PARKED VEHICLES TABLE -->
+    <!-- ========================= -->
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-header bg-light fw-bold text-primary ">
+         PARKED VEHICLES
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Plate</th>
+                        <th>Type</th>
+                        <th>Phone</th>
+                        <th>NIN</th>
+                        <th>Arrival</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for vehicle in parked_vehicles %}
+                    <tr>
+
+                        <td class="fw-semibold">{{ vehicle.ticket_number }}</td>
+                        <td>{{ vehicle.plate_number }}</td>
+                        <td>{{ vehicle.vehicle_type.vehicle_type }}</td>
+                        <td>{{ vehicle.phone_number }}</td>
+                        <td>{{ vehicle.nin_number }}</td>
+                        <td>{{ vehicle.arrival_time|date:"d M Y, H:i" }}</td>
+
+                        <!-- ACTIONS -->
+                        <td>
+
+                            <!-- EDIT -->
+                            <a href="{% url 'edit_vehicle' vehicle.id %}" 
+                               class="text-success me-3"
+                               title="Edit">
+                                <i class="bi bi-pencil-fill fs-5"></i>
+                            </a>
+
+                            <!-- SIGN OUT -->
+                            <a href="{% url 'checkout_vehicle' vehicle.id %}" 
+                               class="text-primary"
+                               title="Sign Out">
+                                <i class="bi bi-box-arrow-right fs-5"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">
+                            No parked vehicles.
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+    <!-- ============================= -->
+    <!-- 🧾 SIGNED OUT VEHICLES TABLE -->
+    <!-- ============================= -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-light fw-bold text-primary ">
+             SIGNED OUT VEHICLES
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Plate</th>
+                        <th>Type</th>
+                        <th>Fee</th>
+                        <th>Arrival</th>
+                        <th>Departure</th>
+                        <th>Rate</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for vehicle in signed_out_vehicles %}
+                    <tr>
+
+                        <td class="fw-semibold">{{ vehicle.plate_number }}</td>
+                        <td>{{ vehicle.vehicle_type.vehicle_type }}</td>
+                        <td class="text-primary fw-semibold">UGX {{ vehicle.fee }}</td>
+                        <td>{{ vehicle.arrival_time|date:"d M Y, H:i" }}</td>
+                        <td>{{ vehicle.departure_time|date:"d M Y, H:i" }}</td>
+
+                        <td>
+                            {% if vehicle.rate_type == "day" %}
+                                <span class="badge bg-success-subtle text-success">Day</span>
+                            {% elif vehicle.rate_type == "night" %}
+                                <span class="badge bg-dark-subtle text-dark">Night</span>
+                            {% elif vehicle.rate_type == "short" %}
+                                <span class="badge bg-primary-subtle text-primary">Short</span>
+                            {% else %}
+                                <span class="badge bg-secondary-subtle text-secondary">Pending</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+
+                            <!-- RECEIPT -->
+                            <a href="{% url 'print_receipt' vehicle.id %}" 
+                               class="text-success"
+                               title="Receipt">
+                                <i class="bi bi-receipt fs-5"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            No signed out vehicles.
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

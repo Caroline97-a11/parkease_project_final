@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h4 class="fw-bold mb-1 text-center">Add vehicle category</h4>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between mt-4">
+
+                    <button type="reset" class="btn btn-outline-secondary">
+                        Clear Form
+                    </button>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        Add category
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <span class="fw-semibold">Tyre Service Details</span>
+
+            <!-- ACTION ICONS -->
+            <div class="d-flex gap-3">
+
+                <!-- Receipt -->
+                <a href="{% url 'tyre_receipt' tyre.id %}" 
+                   class="text-primary fs-5"
+                   title="Receipt">
+                    <i class="bi bi-receipt"></i>
+                </a>
+
+                <!-- Edit -->
+                <a href="{% url 'edit_tyre' tyre.id %}" 
+                   class="text-success fs-5"
+                   title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+
+                <!-- Delete -->
+                <a href="{% url 'delete_tyre' tyre.id %}" 
+                   class="text-danger fs-5"
+                   title="Delete">
+                    <i class="bi bi-trash"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <strong>Plate Number:</strong><br>
+                    {{ tyre.vehicle_plate }}
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Service:</strong><br>
+                    <span class="badge bg-secondary">
+                        {{ tyre.service.name }}
+                    </span>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Price:</strong><br>
+                    <span class="text-success fw-bold">
+                        UGX {{ tyre.service.price }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

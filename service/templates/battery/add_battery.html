@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10 col-xl-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-light fw-semibold">
+                    Add Battery Service
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form|crispy }}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">
+                            Save Battery Service
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

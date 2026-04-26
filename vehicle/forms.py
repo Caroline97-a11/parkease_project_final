@@ -136,7 +136,7 @@ class RegistrationForm(forms.ModelForm):
 
 
 # sign out form logic
-class CheckoutForm(forms.ModelForm):
+class CheckOutForm(forms.ModelForm):
 
     class Meta:
         model = Registration

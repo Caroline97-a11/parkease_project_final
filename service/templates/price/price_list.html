@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h4 class="fw-bold mb-0 text-primary">Service Prices</h4>
+            <small class="text-muted">Manage all service pricing</small>
+        </div>
+
+        <!-- ADD BUTTON -->
+        <a href="{% url 'add_service_price' %}" class="btn btn-primary btn-sm shadow-sm">
+            <i class="bi bi-plus-lg me-1"></i> Add Price
+        </a>
+
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <!-- TABLE HEAD -->
+                <thead class="table-light">
+                    <tr>
+                        <th>Service</th>
+                        <th>Vehicle Size</th>
+                        <th>Model</th>
+                        <th>Price</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+
+                <!-- TABLE BODY -->
+                <tbody>
+
+                    {% for p in prices %}
+                    <tr>
+
+                        <td class="fw-semibold">{{ p.name }}</td>
+
+                        <td>
+                            <span class="badge bg-secondary-subtle text-dark">
+                                {{ p.vehicle_size }}
+                            </span>
+                        </td>
+
+                        <td>{{ p.model }}</td>
+
+                        <td class="fw-bold text-primary">
+                            UGX {{ p.price }}
+                        </td>
+
+                        <!-- ACTION -->
+                        <td class="text-end">
+
+                            <!-- EDIT -->
+                            <a href="{% url 'edit_price' p.id %}" 
+                               class="text-success me-3"
+                               title="Edit">
+                                <i class="bi bi-pencil-fill fs-5"></i>
+                            </a>
+
+                            <!-- DELETE -->
+                            <a href="{% url 'delete_price' p.id %}" 
+                               class="text-danger"
+                               title="Delete">
+                                <i class="bi bi-trash fs-5"></i>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                            No prices available
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

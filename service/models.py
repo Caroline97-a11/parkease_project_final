@@ -27,9 +27,9 @@ class Service(models.Model):
 #This class handles the  tyre service registration
 class Tyre(models.Model):
 
-    vehicle_plate = models.CharField(max_length=10)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    payment_method= models.ForeignKey(Payment, no_delete =models.CASCADE)
+    vehicle_plate = models.CharField(max_length=10, blank=False, null =False)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, null=False)
+    payment_method = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True, blank=True)
     registered_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     receipt_number = models.CharField(max_length=20, unique=True, editable=False)
     date = models.DateField(default=timezone.now)
@@ -54,8 +54,8 @@ class Battery(models.Model):
 
     customer_name = models.CharField(max_length=100)
     battery_type = models.CharField(max_length=20, choices=BATTERY_SERVICE, default='Battery hire')
-    price = models.DecimalField(max_digits=6, decimal_places=3)
-    Payment_method =models.ForeignKey(Payment, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=6, decimal_places=3, null= False)
+    Payment_method =models.ForeignKey(Payment, on_delete=models.CASCADE, null=False)
     registered_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     receipt_number = models.CharField(max_length=20, unique=True, editable=False)
     date = models.DateField(default=timezone.now)
