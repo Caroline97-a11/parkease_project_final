@@ -60,7 +60,7 @@ class BatteryAddForm(forms.ModelForm):
             "customer_name",
             "battery_type",
             "price",
-            "Payment_method",
+            "payment_method",
             "registered_by"
         ]
 

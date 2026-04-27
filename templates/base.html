@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ParkEase System</title>
+    <title>{% block title %}ParkEase System {% endblock %}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,9 +21,6 @@
 
 <body class="d-flex flex-column min-vh-100">
 {% include 'includes/navs.html' %}
-
-
-
 <div class="flex-grow-1">
     {% block content %}
     {% endblock %}

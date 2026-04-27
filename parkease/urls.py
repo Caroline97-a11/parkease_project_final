@@ -22,6 +22,6 @@ urlpatterns = [
     path('',include('staff.urls')),
     path('vehicle/',include('vehicle.urls')),
     path('service/', include('service.urls')),
-    # path('report/', include('report.urls'))
+    path('report/', include('report.urls'))
 ]
 

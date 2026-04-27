@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container-fluid py-4">
+<div class="container-xxl py-4 px-4">
 
     <!-- HEADER -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
@@ -12,14 +12,13 @@
         </a>
     </div>
 
-    <!-- QUICK STATS -->
+    <!-- card section -->
     <div class="row g-3 mb-4">
         {% include "includes/cards.html" %}
     </div>
 
-    <!-- ========================= -->
-    <!-- 🚗 PARKED VEHICLES TABLE -->
-    <!-- ========================= -->
+    <!-- parked vehicles table -->
+  
     <div class="card border-0 shadow-sm mb-4">
 
         <div class="card-header bg-light fw-bold text-primary ">
@@ -140,7 +139,7 @@
                         <td>
 
                             <!-- RECEIPT -->
-                            <a href="{% url 'print_receipt' vehicle.id %}" 
+                            <a href="{% url 'vehicle_receipt' vehicle.id %}" 
                                class="text-success"
                                title="Receipt">
                                 <i class="bi bi-receipt fs-5"></i>

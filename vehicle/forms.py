@@ -97,7 +97,7 @@ class RegistrationForm(forms.ModelForm):
         if not plate.isalnum():
             raise forms.ValidationError("Plate must be alphanumeric only.")
 
-        if len(plate) > 6:
+        if len(plate) > 7:
             raise forms.ValidationError("Plate must not exceed 6 characters.")
 
         return plate
@@ -112,8 +112,8 @@ class RegistrationForm(forms.ModelForm):
             if not nin.startswith("C"):
                 raise forms.ValidationError("NIN must start with 'C'.")
 
-            if len(nin) not in [13, 14]:
-                raise forms.ValidationError("NIN must be 13 or 14 characters.")
+            if len(nin) != 14:
+                raise forms.ValidationError("NIN must be exactly 14 characters.")
 
             if not nin.isalnum():
                 raise forms.ValidationError("NIN must be alphanumeric only.")
@@ -140,14 +140,18 @@ class CheckOutForm(forms.ModelForm):
 
     class Meta:
         model = Registration
-        fields = ["driver_name", "phone_number", "nin_number", "driver_status", "payment_method"]
+        fields = [
+            "driver_name",
+            "phone_number",
+            "nin_number",
+            "driver_status",
+            "payment_method",  # ✅ this is the key
+        ]
 
         widgets = {
             "driver_name": forms.TextInput(attrs={"class": "form-control"}),
             "phone_number": forms.TextInput(attrs={"class": "form-control"}),
             "nin_number": forms.TextInput(attrs={"class": "form-control"}),
             "driver_status": forms.Select(attrs={"class": "form-select"}),
-            "payment_method": forms.Select(attrs={"class": "form-select"}),
+            "payment_method": forms.Select(attrs={"class": "form-select"}),  # dropdown styling
         }
-
-

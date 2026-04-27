@@ -7,31 +7,30 @@ from django.contrib import messages
 # service price logic
 def add_service_price(request):
 
-    if request.user.role != "MANAGER":
+     if request.user.role != "MANAGER":
         return render(request, "403.html", {
             "message": "You have no access to this page"
         })
 
-    form = ServiceForm()
+     form = ServiceForm()
 
-    if request.method == "POST":
+     if request.method == "POST":
         form = ServiceForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("service_price_list")
 
-    return render(request, "price/add_price.html", {"form": form})
-
+     return render(request, "price/add_price.html", {"form": form})
 
 def service_price_list(request):
 
-    if request.user.role != "MANAGER":
-        return render(request, "403.html", {
-            "message": "You have no access to this page"
+     if request.user.role != "MANAGER":
+         return render(request, "403.html", {
+             "message": "You have no access to this page"
         })
 
-    prices = Service.objects.all()
-    return render(request, "price/price_list.html", {"prices": prices})
+     prices = Service.objects.all()
+     return render(request, "price/price_list.html", {"prices": prices})
 
 
 def edit_price(request, id):
@@ -65,7 +64,7 @@ def add_tyre_service(request):
     if request.user.role != "MANAGER":
         return render(request, "403.html", {
             "message": "You have no access to this page"
-        })
+            })
 
     form = TyreAddForm()
 
@@ -80,13 +79,13 @@ def add_tyre_service(request):
 
 def tyre_list(request):
 
-    if request.user.role != "MANAGER":
+     if request.user.role != "MANAGER":
         return render(request, "403.html", {
             "message": "You have no access to this page"
         })
 
-    services = Tyre.objects.all().order_by("-date")
-    return render(request, "tyre/tyre_list.html", {"services": services})
+     services = Tyre.objects.all().order_by("-date")
+     return render(request, "tyre/tyre_list.html", {"services": services})
 
 def tyre_detail(request, id):
     tyre = get_object_or_404(Tyre, id=id)
@@ -104,7 +103,7 @@ def edit_tyre(request, id):
     else:
         form = TyreAddForm(instance=tyre)
 
-    return render(request, 'edit_tyre.html', {'form': form})
+    return render(request, 'tyre/tyre_edit.html', {'form': form})
 
 def delete_tyre(request, id):
     tyre = get_object_or_404(Tyre, id=id)
@@ -119,14 +118,14 @@ def delete_tyre(request, id):
 def tyre_receipt(request, pk):
 
     if request.user.role != "MANAGER":
-        return render(request, "403.html", {
+         return render(request, "403.html", {
             "message": "You have no access to this page"
-        })
+              })
 
     service = get_object_or_404(Tyre, id=pk)
     price = service.service.price
 
-    return render(request, "tyre_receipt.html", {
+    return render(request, "tyre/tyre_receipt.html", {
         "service": service,
         "price": price
     })
@@ -135,41 +134,41 @@ def tyre_receipt(request, pk):
 # bettery service logic
 def add_battery_service(request):
 
-    if request.user.role != "MANAGER":
-        return render(request, "403.html", {
+     if request.user.role != "MANAGER":
+         return render(request, "403.html", {
             "message": "You have no access to this page"
         })
-    form = BatteryAddForm()
+     form = BatteryAddForm()
 
-    if request.method == "POST":
+     if request.method == "POST":
         form = BatteryAddForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("battery_list")
 
-    return render(request, "battery/add_battery.html", {"form": form})
+     return render(request, "battery/add_battery.html", {"form": form})
 
 
 def battery_list(request):
 
-    if request.user.role != "MANAGER":
+     if request.user.role != "MANAGER":
         return render(request, "403.html", {
             "message": "You have no access to this page"
         })
 
-    batteries = BatteryAddForm.objects.all().order_by("-date")
-    return render(request, "battery/battery_list.html", {"batteries": batteries})
+     batteries = Battery.objects.all().order_by("-date")
+     return render(request, "battery/battery_list.html", {"batteries": batteries})
 
 def battery_receipt(request, pk):
 
-    if request.user.role != "MANAGER":
-        return render(request, "403.html", {
-            "message": "You have no access to this page"
-        })
+     if request.user.role != "MANAGER":
+         return render(request, "403.html", {
+             "message": "You have no access to this page"
+             })
 
-    service = get_object_or_404(Battery, id=pk)
+     service = get_object_or_404(Battery, id=pk)
 
-    return render(request, "battery/battery_receipt.html", {
+     return render(request, "battery/battery_receipt.html", {
         "service": service,
         "price": service.price
     })

@@ -1,24 +1,22 @@
 from django.db import models
-from django.db import models
 import uuid
 from django.utils import timezone
 from staff.models import Staff
-from payment.models import Payment
 
-# Create your models here.
-# class for vehicle category
+
+
+# This model stores vehicle categories and their parking rates
 class Category(models.Model):
 
     VEHICLE_TYPES = [
-        ("Truck", "truck"),
-        ("Personal car", "personal car"),
-        ("Taxi", "taxi"),
-        ("coaster", "coaster"),
-        ("Boda-boda", "boda-boda"),
+        ("Truck", "Truck"),
+        ("Personal car", "Personal car"),
+        ("Taxi", "Taxi"),
+        ("Coaster", "Coaster"),
+        ("Boda-boda", "Boda-boda"),
     ]
 
     vehicle_type = models.CharField(max_length=50, choices=VEHICLE_TYPES, unique=True)
-
     day_rate = models.IntegerField()
     night_rate = models.IntegerField()
     short_stay_rate = models.IntegerField()
@@ -26,7 +24,8 @@ class Category(models.Model):
     def __str__(self):
         return self.vehicle_type
 
-# class for vehicle registration
+
+# This model handles vehicle parking registration
 class Registration(models.Model):
 
     GENDER_CHOICES = [
@@ -45,29 +44,48 @@ class Registration(models.Model):
         ("short", "Short Stay"),
     ]
 
+    PAYMENT_METHOD_CHOICES = [
+        ("cash", "Cash"),
+        ("mobile_money", "Mobile Money"),
+        ("card", "Card"),
+    ]
+
     vehicle_type = models.ForeignKey(Category, on_delete=models.CASCADE)
-    plate_number = models.CharField(max_length=10, null=False)
-    model = models.CharField(max_length=100, null=False)
-    color = models.CharField(max_length=100, null=True,blank=True)
-    driver_name = models.CharField(max_length=100, null=True,blank=True)
-    driver_status = models.CharField(max_length=10,choices=GENDER_CHOICES,null=True,blank=True )
-    phone_number = models.CharField(max_length=15, null=False)
-    nin_number = models.CharField(max_length=20, blank=True, null=True)
+
+    plate_number = models.CharField(max_length=10)
+    model = models.CharField(max_length=100)
+    color = models.CharField(max_length=100, null=True, blank=True)
+
+    driver_name = models.CharField(max_length=100, null=True, blank=True)
+    driver_status = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
+
+    phone_number = models.CharField(max_length=15)
+    nin_number = models.CharField(max_length=20, null=True, blank=True)
+
     arrival_time = models.DateTimeField(default=timezone.now)
     departure_time = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES,default="parked")
-    ticket_number = models.CharField( max_length=20, unique=True,editable=False)
-    fee = models.DecimalField(max_digits=6, decimal_places=3, default=0)
-    rate_type = models.CharField(max_length=10,choices=RATE_TYPE_CHOICES,null=True,blank=True)
-    payment_method = models.ForeignKey(Payment, on_delete=models.CASCADE, null=False)
-    registered_by = models.ForeignKey(Staff,on_delete=models.SET_NULL,null=True)
 
-# This allows for unique ticket numbers
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="parked")
+
+    ticket_number = models.CharField(max_length=20, unique=True, editable=False)
+
+    fee = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    rate_type = models.CharField(max_length=10, choices=RATE_TYPE_CHOICES, null=True, blank=True)
+
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        null=True,
+        blank=True
+    )
+
+    registered_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
+
     def save(self, *args, **kwargs):
         if not self.ticket_number:
             self.ticket_number = f"TKT-{uuid.uuid4().hex[:6].upper()}"
         super().save(*args, **kwargs)
 
-# Objects form the databases display the way they are save not as object
     def __str__(self):
         return f"{self.plate_number} ({self.ticket_number})"

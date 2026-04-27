@@ -8,13 +8,13 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h4 class="fw-bold mb-0 text-primary">Service Prices</h4>
-            <small class="text-muted">Manage all service pricing</small>
+            <h4 class="fw-bold mb-0 text-primary">Tyre Service Prices</h4>
+            <small class="text-muted">Manage all tyre service pricing</small>
         </div>
 
         <!-- ADD BUTTON -->
         <a href="{% url 'add_service_price' %}" class="btn btn-primary btn-sm shadow-sm">
-            <i class="bi bi-plus-lg me-1"></i> Add Price
+            <i class="bi bi-plus-lg me-1"></i> Add Service
         </a>
 
     </div>
@@ -27,51 +27,45 @@
             <table class="table table-hover align-middle mb-0">
 
                 <!-- TABLE HEAD -->
-                <thead class="table-light">
+                <thead class="table-secondary">
                     <tr>
                         <th>Service</th>
-                        <th>Vehicle Size</th>
-                        <th>Model</th>
-                        <th>Price</th>
-                        <th class="text-end">Action</th>
+                        <th>Price (UGX)</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <!-- TABLE BODY -->
                 <tbody>
 
-                    {% for p in prices %}
+                    {% for price in prices %}
                     <tr>
 
-                        <td class="fw-semibold">{{ p.name }}</td>
+                        <!-- SERVICE -->
+                        <td class="fw-semibold">
+                            {{ price.name }}
+                        </td>
 
+                        <!-- PRICE -->
+                        <td class="text-primary fw-bold">
+                            UGX {{ price.price }}
+                        </td>
+
+                        <!-- ACTIONS -->
                         <td>
-                            <span class="badge bg-secondary-subtle text-dark">
-                                {{ p.vehicle_size }}
-                            </span>
-                        </td>
-
-                        <td>{{ p.model }}</td>
-
-                        <td class="fw-bold text-primary">
-                            UGX {{ p.price }}
-                        </td>
-
-                        <!-- ACTION -->
-                        <td class="text-end">
 
                             <!-- EDIT -->
-                            <a href="{% url 'edit_price' p.id %}" 
-                               class="text-success me-3"
+                            <a href="{% url 'edit_price' price.id %}" 
+                               class="text-primary me-3"
                                title="Edit">
-                                <i class="bi bi-pencil-fill fs-5"></i>
+                                <i class="bi bi-pencil-fill"></i>
                             </a>
 
                             <!-- DELETE -->
-                            <a href="{% url 'delete_price' p.id %}" 
+                            <a href="{% url 'delete_price' price.id %}" 
                                class="text-danger"
                                title="Delete">
-                                <i class="bi bi-trash fs-5"></i>
+                                <i class="bi bi-trash"></i>
                             </a>
 
                         </td>
@@ -80,9 +74,9 @@
 
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
+                        <td colspan="3" class="text-center py-5 text-muted">
                             <i class="bi bi-inbox fs-4 d-block mb-2"></i>
-                            No prices available
+                            No service prices available
                         </td>
                     </tr>
                     {% endfor %}

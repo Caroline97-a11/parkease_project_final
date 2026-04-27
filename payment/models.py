@@ -7,4 +7,4 @@ class Payment(models.Model):
           ('cash','Cash'),
           ('card','Card')
           ]
-    Payment_method =models.CharField(max_length=20, choices=PAYMENT_CHOICE, default='Cash')
+    payment_method =models.CharField(max_length=20, choices=PAYMENT_CHOICE, default='Cash')

@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+}
+
+.page-center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-wrapper {
+    display: flex;
+    max-width: 800px;
+    width: 90%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.login-card {
+    flex: 1;
+    padding: 30px;
+}
+
+.login-image {
+    flex: 1;
+    min-height: 300px;
+    background:
+        linear-gradient(to right, white 20%, transparent 20%),
+        url("../images/cars.jpg") center/cover no-repeat;
+}
+
+/* responsive */
+@media(max-width:768px){
+    .login-wrapper {
+        flex-direction: column;
+    }
+
+    .login-image {
+        height: 200px;
+    }
+}

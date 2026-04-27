@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="row g-4">
+
+        <!-- =========================
+             LEFT SIDE (FORM)
+        ========================== -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-person me-1"></i>
+                    Receiver Information
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {{ form|crispy }}
+
+                        <button class="btn btn-primary w-100 mt-3">
+                            Confirm Payment & Sign Out
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             RIGHT SIDE (DETAILS + RECEIPT)
+        ========================== -->
+        <div class="col-lg-6">
+
+            <!-- VEHICLE DETAILS CARD -->
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-header bg-light fw-semibold">
+                    Vehicle & Arrival Details
+
+                    <span class="badge bg-warning text-dark float-end">
+                        Pending Sign Out
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p><strong>Plate Number:</strong> {{ vehicle.plate_number }}</p>
+                    <p><strong>Arrival Time:</strong> {{ vehicle.arrival_time }}</p>
+                    <p><strong>Duration:</strong> {{ duration }} hrs</p>
+
+                    <!-- Payment method preview -->
+                    <p><strong>Payment Method:</strong> {{ vehicle.payment_method }}</p>
+
+                    <div class="mt-3 fw-bold text-primary fs-4">
+                        UGX {{ fee }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RECEIPT CARD (CENTERED) -->
+            <div class="d-flex justify-content-center">
+
+                <div class="card shadow-sm w-100 text-center">
+
+                    <div class="card-body py-4">
+
+                        <h6 class="fw-bold mb-3">PARKEASE RECEIPT</h6>
+
+                        <hr>
+
+                        <p class="mb-1"><strong>Ticket:</strong> {{ vehicle.ticket_number }}</p>
+                        <p class="mb-1"><strong>Plate:</strong> {{ vehicle.plate_number }}</p>
+                        <p class="mb-1"><strong>Check In:</strong> {{ vehicle.arrival_time }}</p>
+                        <p class="mb-1"><strong>Check Out:</strong> Now</p>
+                        <p class="mb-1"><strong>Duration:</strong> {{ duration }} hrs</p>
+
+                        <!-- Payment method on receipt -->
+                        <p class="mb-3"><strong>Payment Method:</strong> {{ vehicle.payment_method }}</p>
+
+                        <hr>
+
+                        <h4 class="text-primary fw-bold mb-0">
+                            UGX {{ fee }}
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

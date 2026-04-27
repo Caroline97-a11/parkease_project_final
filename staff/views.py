@@ -1,59 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
-from django.http import HttpResponseForbidden
 from django.contrib import messages
+from django.utils import timezone
+
 from .forms import StaffLoginForm, StaffForm
 from .models import Staff
 
-# Create your views here.
+from vehicle.forms import CategoryForm, RegistrationForm, CheckOutForm
+from vehicle.models import Category, Registration
+
+
 def loginPage(request):
+
+    form = StaffLoginForm(request, data=request.POST or None)
+
     if request.method == 'POST':
-        form = StaffLoginForm(request, data=request.POST)
 
         if form.is_valid():
             user = form.get_user()
             login(request, user)
 
-            role = user.role
+            if user.role == "ADMIN":
+                return redirect("report_dashboard")
 
-            if role == "ADMIN":
-                return redirect('report_dashboard')
+            elif user.role == "ATTENDANT":
+                return redirect("dashboard")
 
-            elif role == "ATTENDANT":
-                return redirect('dashboard')
+            elif user.role == "MANAGER":
+                return redirect("tyre_list")
 
-            elif role == "MANAGER":
-                return redirect('service_price_list')
+            return redirect("dashboard")
 
-            return redirect('/')
-
-    else:
-        form = StaffLoginForm()
+        else:
+            messages.error(request, "Invalid username or password.")
 
     return render(request, 'loginpage.html', {'form': form})
-
-
-def no_access():
-    return HttpResponseForbidden("You do not have permission to access this page.")
-
-
-def register(request):
-    if not request.user.is_authenticated:
-        return redirect('loginPage')
-
-    if request.user.role != 'ADMIN':
-        return no_access()
-
-    if request.method == 'POST':
-        form = StaffForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('user_list')
-    else:
-        form = StaffForm()
-
-    return render(request, 'user_registration.html', {'form': form})
 
 
 def logout_user(request):
@@ -61,50 +42,57 @@ def logout_user(request):
     return redirect('loginPage')
 
 
-def user_list(request):
-    if not request.user.is_authenticated:
-        return redirect('loginPage')
+def register_user(request):
 
-    if request.user.role != 'ADMIN':
-        return no_access()
+    if request.user.role != "ADMIN":
+        return render(request, "403.html", {"message": "Access denied"})
+
+    form = StaffForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('user_list')
+
+    return render(request, 'user_registration.html', {'form': form})
+
+
+def user_list(request):
+
+    if request.user.role != "ADMIN":
+        return render(request, "403.html", {"message": "Access denied"})
 
     users = Staff.objects.all().order_by("-date_joined")
-
     return render(request, "user_list.html", {"users": users})
 
 
 def edit_user(request, pk):
-    if not request.user.is_authenticated:
-        return redirect('loginPage')
 
-    if request.user.role != 'ADMIN':
-        return no_access()
+    if request.user.role != "ADMIN":
+        return render(request, "403.html", {"message": "Access denied"})
 
     user = get_object_or_404(Staff, id=pk)
+    form = StaffForm(request.POST or None, instance=user)
 
     if request.method == 'POST':
-        form = StaffForm(request.POST, instance=user)
-
         if form.is_valid():
             form.save()
             return redirect('user_list')
-    else:
-        form = StaffForm(instance=user)
 
     return render(request, 'edit_user.html', {'form': form})
 
-def delete_user(request, id):
-    if not request.user.is_authenticated:
-        return redirect('loginPage')
 
-    if request.user.role != 'ADMIN':
-        return no_access()
+def delete_user(request, id):
+
+    if request.user.role != "ADMIN":
+        return render(request, "403.html", {"message": "Access denied"})
 
     user = get_object_or_404(Staff, id=id)
 
     if request.method == "POST":
         user.delete()
-        messages.success(request, "User deleted successfully.")
         return redirect('user_list')
 
     return render(request, 'delete_user.html', {'user': user})
+
+
