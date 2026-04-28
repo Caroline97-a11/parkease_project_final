@@ -4,7 +4,7 @@
 
 <div class="container py-4">
 
-    <!-- HEADER -->
+    <!-- Header section -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
         <h3 class="fw-bold text-primary mb-0">Daily Report Dashboard</h3>
 
@@ -15,7 +15,7 @@
             </button>
         </form>
     </div>
- 
+ <!--  statistic card section -->
     {% include 'includes/cards.html' %}
 <div class="d-flex justify-content-between mb-3 align-items-center">
     <strong>Today's Total Revenue: {{total_revenue}}</strong>
@@ -27,7 +27,7 @@
         <div class="card-header bg-light fw-semibold">
             Signed Out Vehicles
         </div>
-
+<!-- Table for signed out vehicles -->
         <div class="table-responsive">
 
             <table class="table table-hover align-middle mb-0">
@@ -40,7 +40,6 @@
                         <th>Fee</th>
                         <th>Departure</th>
                         <th>Rate</th>
-                        <th>Registered By</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,7 +53,7 @@
                         <td class="text-primary fw-semibold">UGX {{ v.fee }}</td>
                         <td>{{ v.departure_time|date:"d M Y, H:i" }}</td>
 
-                        <!-- RATE -->
+             <!-- Rate check section -->
                         <td>
                             {% if v.rate_type == "day" %}
                             <span class="badge bg-success-subtle text-success">Day</span>
@@ -66,9 +65,6 @@
                             <span class="badge bg-secondary-subtle text-secondary">Pending</span>
                             {% endif %}
                         </td>
-
-                        <td>{{ v.registered_by.username }}</td>
-
                         <td>
                             <!-- Receipt -->
                             <a href="{% url 'vehicle_receipt' v.id %}" class="text-success me-2" title="Receipt">

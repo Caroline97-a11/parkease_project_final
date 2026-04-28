@@ -7,9 +7,11 @@
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
         <h4 class="fw-bold text-primary mb-0">Attendant Dashboard</h4>
 
+        {% if request.user.role == "ATTENDANT" %}
         <a href="{% url 'register_vehicle' %}" class="btn btn-primary btn-sm shadow-sm">
             + Add Vehicle
         </a>
+        {% endif %}
     </div>
 
     <!-- card section -->
@@ -18,11 +20,11 @@
     </div>
 
     <!-- parked vehicles table -->
-  
+
     <div class="card border-0 shadow-sm mb-4">
 
         <div class="card-header bg-light fw-bold text-primary ">
-         PARKED VEHICLES
+            PARKED VEHICLES
         </div>
 
         <div class="table-responsive">
@@ -57,16 +59,13 @@
                         <td>
 
                             <!-- EDIT -->
-                            <a href="{% url 'edit_vehicle' vehicle.id %}" 
-                               class="text-success me-3"
-                               title="Edit">
-                                <i class="bi bi-pencil-fill fs-5"></i>
+                            <a href="{% url 'edit_vehicle' vehicle.id %}" class="text-success me-3" title="Edit"
+                               class="btn btn-sm btn-success">
+                                <i class="bi bi-pencil-fill"></i>
                             </a>
 
                             <!-- SIGN OUT -->
-                            <a href="{% url 'checkout_vehicle' vehicle.id %}" 
-                               class="text-primary"
-                               title="Sign Out">
+                            <a href="{% url 'checkout_vehicle' vehicle.id %}" class="text-primary" title="Sign Out">
                                 <i class="bi bi-box-arrow-right fs-5"></i>
                             </a>
 
@@ -88,13 +87,13 @@
         </div>
     </div>
 
-    <!-- ============================= -->
-    <!-- 🧾 SIGNED OUT VEHICLES TABLE -->
-    <!-- ============================= -->
+   
+    <!--  SIGNED OUT VEHICLES TABLE -->
+   
     <div class="card border-0 shadow-sm">
 
         <div class="card-header bg-light fw-bold text-primary ">
-             SIGNED OUT VEHICLES
+            SIGNED OUT VEHICLES
         </div>
 
         <div class="table-responsive">
@@ -126,22 +125,20 @@
 
                         <td>
                             {% if vehicle.rate_type == "day" %}
-                                <span class="badge bg-success-subtle text-success">Day</span>
+                            <span class="badge bg-success-subtle text-success">Day</span>
                             {% elif vehicle.rate_type == "night" %}
-                                <span class="badge bg-dark-subtle text-dark">Night</span>
+                            <span class="badge bg-dark-subtle text-dark">Night</span>
                             {% elif vehicle.rate_type == "short" %}
-                                <span class="badge bg-primary-subtle text-primary">Short</span>
+                            <span class="badge bg-primary-subtle text-primary">Short</span>
                             {% else %}
-                                <span class="badge bg-secondary-subtle text-secondary">Pending</span>
+                            <span class="badge bg-secondary-subtle text-secondary">Pending</span>
                             {% endif %}
                         </td>
 
                         <td>
 
                             <!-- RECEIPT -->
-                            <a href="{% url 'vehicle_receipt' vehicle.id %}" 
-                               class="text-success"
-                               title="Receipt">
+                            <a href="{% url 'vehicle_receipt' vehicle.id %}" class="text-success" title="Receipt">
                                 <i class="bi bi-receipt fs-5"></i>
                             </a>
 

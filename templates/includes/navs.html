@@ -20,14 +20,20 @@
 
             {% if request.user.is_authenticated %}
 
-                <!-- Dashboard (Admin + Attendant) -->
+                <!-- ATTENDANT NAV -->
                 {% if request.user.role == "ATTENDANT" %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register_vehicle' %}">
+                        Register Vehicle
+                    </a>
+                </li>
                 {% endif %}
 
-                <!-- Reports (Admin only) -->
+                <!-- ADMIN NAV -->
                 {% if request.user.role == "ADMIN" %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'report_dashboard' %}">Reports</a>
@@ -42,14 +48,14 @@
                 </li>
                 {% endif %}
 
-                <!-- Category List (Admin + Attendant + Manager) -->
-                {% if request.user.role in "ADMIN ATTENDANT MANAGER" %}
+                <!-- SHARED (ADMIN + ATTENDANT) -->
+                {% if request.user.role == "ADMIN" or request.user.role == "ATTENDANT" %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'vehicle_category_list' %}">Category List</a>
                 </li>
                 {% endif %}
 
-                <!-- Manager only section -->
+                <!-- MANAGER NAV -->
                 {% if request.user.role == "MANAGER" %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'service_price_list' %}">Price List</a>

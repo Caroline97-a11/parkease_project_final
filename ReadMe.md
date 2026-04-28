@@ -1,18 +1,39 @@
-steps of setting up my project parkease
-installed virtual environment python -m venv venv
-activated virtual environment --source venv/Scripts/activate
-installed django ---pip install django
-created my project ---djano-admin startproject parkease
-navigated to my project folder ---cd parkease
-created 4 app (vehicle, service, payment, staff) django-admin start app 
-installed crispy forms and bootsrap ----pip install django-crispy-forms crispy-bootstrap5
-created the requirements file ---pip freeze > requirements.txt
-in my project folder i created the template folder, static folder, readme file and the .igitignore file.
-in settings.py, i registered all the app, and crispy-forms plus crispy-bootsrap5
-Technology
-crispy-bootstrap5==2026.3
-Django==6.0.4
-django-crispy-forms==2.6
-python 
-html 
-css
+# ParkEase – Integrated Parking & Vehicle Services Management System 
+
+ParkEase is a web-based system designed to make everyday parking operations smoother, faster, and more organized. It helps teams manage vehicle entry and exit, track services like tyre repairs and battery sales, and monitor daily activity all in one place.
+
+The system is built with real users in mind, especially parking attendants and service managers who need something practical, clear, and reliable.
+
+# Functionalities
+
+ParkEase supports different users in their daily work:
+  
+# Parking Attendants
+-Quickly register vehicles as they arrive  
+-Issue parking tickets automatically  
+-Sign out vehicles when they leave  
+-Generate simple receipts  
+
+# Section Managers (Tyre & Battery)
+-Record tyre services such as pressure checks and puncture repairs  
+-Track battery sales and hire services  
+-Set and update service prices easily  
+
+# System Administrators
+-View reports on daily activity and income  
+-Manage system users  
+-Control vehicle categories and pricing  
+
+# Technology used
+
+ParkEase is developed using:
+
+-Python (Django)
+-Bootstrap 5 
+-SQLite
+-HTML
+-css 
+
+# Author
+Caroline Anyijukire 
+canyijukire@student.refactory.academy

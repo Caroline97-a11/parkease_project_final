@@ -79,7 +79,14 @@ class RegistrationForm(forms.ModelForm):
 
         if len(phone) != 13:
             raise forms.ValidationError("Phone must be +256XXXXXXXXX.")
+        
+        existing = Registration.objects.filter(phone_number=phone).exclude(
+        id=self.instance.id if self.instance else None
+    )
+        if existing.exists():
+            raise forms.ValidationError("This phone number is already registered.")
 
+   
         return phone
 
 # number plate checks
@@ -117,6 +124,13 @@ class RegistrationForm(forms.ModelForm):
 
             if not nin.isalnum():
                 raise forms.ValidationError("NIN must be alphanumeric only.")
+            
+        
+            existing = Registration.objects.filter(nin_number=nin).exclude(
+            id=self.instance.id if self.instance else None
+        )
+            if existing.exists():
+                raise forms.ValidationError("This NIN is already taken.")
 
         return nin
 
@@ -145,7 +159,7 @@ class CheckOutForm(forms.ModelForm):
             "phone_number",
             "nin_number",
             "driver_status",
-            "payment_method",  # ✅ this is the key
+            "payment_method",  
         ]
 
         widgets = {
