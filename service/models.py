@@ -2,8 +2,6 @@ import uuid
 from django.db import models 
 from django.utils import timezone 
 from staff.models import Staff  
-from vehicle.models import Registration
-
 
 
 # This model stores predefined tyre service types and fixed prices
@@ -77,18 +75,18 @@ class Battery(models.Model):
         ("card", "Card"),
     ]
 
-    customer_name = models.CharField(max_length=100)  # Customer name
+    customer_name = models.CharField(max_length=100)
 
-    battery_type = models.CharField(max_length=20, choices=BATTERY_SERVICE)  # Hire or sale
+    battery_type = models.CharField(max_length=20, choices=BATTERY_SERVICE) 
 
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # Price
+    price = models.DecimalField(max_digits=10, decimal_places=2) 
 
     payment_method = models.CharField(max_length=20,choices=PAYMENT_METHOD_CHOICES,null=True,blank=True)
     registered_by = models.ForeignKey(Staff,on_delete=models.SET_NULL,null=True) 
 
     receipt_number = models.CharField(max_length=20, unique=True, editable=False)  # Receipt ID
 
-    date = models.DateTimeField(default=timezone.now)  # Date created
+    date = models.DateTimeField(default=timezone.now) 
 
     # Auto-generate receipt number
     def save(self, *args, **kwargs):

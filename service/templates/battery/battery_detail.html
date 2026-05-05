@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<!-- This is header section -->
+
 <div class="container mt-4">
 
     <div class="card shadow-sm border-0">
@@ -10,7 +12,7 @@
 
             <span class="fw-semibold">Battery Service Details</span>
 
-            <!-- ACTION ICONS -->
+            <!-- Action links -->
             <div class="d-flex gap-3">
 
                 <!-- Receipt -->
@@ -22,9 +24,9 @@
 
                 <!-- Edit -->
                 <a href="{% url 'edit_battery' battery.id %}" 
-                   class="text-success fs-5"
+                   class="text-success"
                    title="Edit">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-fill"></i>
                 </a>
 
                 <!-- Delete -->

@@ -42,6 +42,14 @@
                         <span>{{ vehicle.vehicle_type.vehicle_type }}</span>
                     </div>
 
+                    <!-- PAYMENT METHOD (ADDED HERE) -->
+                    <div class="d-flex justify-content-between">
+                        <small class="text-muted">Payment Method</small>
+                        <span class="fw-semibold">
+                            {{ vehicle.get_payment_method_display|default:"Pending" }}
+                        </span>
+                    </div>
+
                     <hr>
 
                     <!-- TIME -->

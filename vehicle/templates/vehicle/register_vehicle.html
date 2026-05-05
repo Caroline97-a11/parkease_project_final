@@ -5,94 +5,101 @@
 
 <div class="container py-5">
 
-    <!-- This centers the form nicely on the page -->
     <div class="row justify-content-center">
 
-        <!-- This controls the width of the form -->
         <div class="col-lg-8">
 
-            <!-- This is the card container -->
             <div class="card shadow-sm border-0">
 
                 <div class="card-body p-4">
 
-                    <!-- Page title -->
                     <h4 class="fw-bold text-center mb-4">Vehicle Registration</h4>
 
-                    <!-- Form starts here -->
                     <form method="post">
                         {% csrf_token %}
 
-                        <!-- This creates a grid layout like your user form -->
                         <div class="row g-3">
 
                             <!-- Vehicle Type -->
                             <div class="col-md-6">
                                 <label class="form-label">Vehicle Type</label>
                                 {{ form.vehicle_type }}
-                                {{ form.vehicle_type.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.vehicle_type.errors }}
+                                </div>
                             </div>
 
                             <!-- Plate Number -->
                             <div class="col-md-6">
                                 <label class="form-label">Plate Number</label>
                                 {{ form.plate_number }}
-                                {{ form.plate_number.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.plate_number.errors }}
+                                </div>
                             </div>
 
                             <!-- Model -->
                             <div class="col-md-6">
                                 <label class="form-label">Model</label>
                                 {{ form.model }}
-                                {{ form.model.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.model.errors }}
+                                </div>
                             </div>
 
                             <!-- Color -->
                             <div class="col-md-6">
                                 <label class="form-label">Color</label>
                                 {{ form.color }}
-                                {{ form.color.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.color.errors }}
+                                </div>
                             </div>
 
                             <!-- Driver Name -->
                             <div class="col-md-6">
                                 <label class="form-label">Driver Name</label>
                                 {{ form.driver_name }}
-                                {{ form.driver_name.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.driver_name.errors }}
+                                </div>
                             </div>
 
                             <!-- Driver Status -->
                             <div class="col-md-6">
                                 <label class="form-label">Driver Status</label>
                                 {{ form.driver_status }}
-                                {{ form.driver_status.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.driver_status.errors }}
+                                </div>
                             </div>
 
                             <!-- Phone -->
                             <div class="col-md-6">
                                 <label class="form-label">Phone Number</label>
                                 {{ form.phone_number }}
-                                {{ form.phone_number.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.phone_number.errors }}
+                                </div>
                             </div>
 
                             <!-- NIN -->
                             <div class="col-md-6">
                                 <label class="form-label">NIN Number</label>
                                 {{ form.nin_number }}
-                                {{ form.nin_number.errors }}
+                                <div class="text-danger small mt-1">
+                                    {{ form.nin_number.errors }}
+                                </div>
                             </div>
 
                         </div>
 
-                        <!-- Buttons section -->
                         <div class="d-flex justify-content-between mt-4">
 
-                            <!-- This reloads the page to clear the form -->
                             <a href="{% url 'register_vehicle' %}" class="btn btn-outline-secondary">
                                 Clear Form
                             </a>
 
-                            <!-- Submit button -->
                             <button type="submit" class="btn btn-primary px-4">
                                 <i class="bi bi-check-circle me-2"></i>
                                 Register Vehicle

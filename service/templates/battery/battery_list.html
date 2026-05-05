@@ -31,7 +31,7 @@
                         <th>Customer</th>
                         <th>Battery Type</th>
                         <th>Price</th>
-                        <th class="text-end">Action</th>
+                        <th">Action</th>
                     </tr>
                 </thead>
 
@@ -52,7 +52,7 @@
                             UGX {{ b.price }}
                         </td>
 
-                        <td class="text-end">
+                        <td>
                             <a href="{% url 'battery_detail' b.id %}" 
                                class="text-primary fs-5" 
                                title="View">

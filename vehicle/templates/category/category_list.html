@@ -25,8 +25,10 @@
                             <th>Vehicle Type</th>
                             <th>Day Rate (UGX)</th>
                             <th>Night Rate (UGX)</th>
-                            <th>Short Stay (< 3hrs) </th>
+                            <th>Short Stay (&lt; 3hrs) </th>
+                                    {% if request.user.role == "ADMIN" %}
                             <th class="text-center">Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
 
@@ -42,24 +44,22 @@
                             <td>UGX {{ category.short_stay_rate }}</td>
 
                             <!-- ACTIONS -->
+                            {% if request.user.role == "ADMIN" %}
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
 
                                     <!-- EDIT -->
-                                    <a href="{% url 'edit_category' category.id %}"
-                                        class="btn btn-sm btn-success">
+                                    <a href="{% url 'edit_category' category.id %}" class="btn btn-sm btn-success">
                                         <i class="bi bi-pencil-fill"></i>
                                     </a>
 
                                     <!-- DELETE -->
-                                    <form method="post" action="{% url 'delete_category' category.id %}"
-                                        onsubmit="return confirm('Delete this category?');">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-
+                                    <a href="{% url 'delete_category' category.id %}"
+                                        class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                    {% endif %}
+ 
                                 </div>
                             </td>
 
